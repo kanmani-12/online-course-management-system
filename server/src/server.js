@@ -9,8 +9,16 @@ import adminRoutes from "./routes/admin.js";
 
 dotenv.config();
 const app = express();
-app.use(cors({ origin: process.env.CLIENT_URL?.split(",") || true }));
+app.use(
+  cors({
+    origin: ["https://kanmani-12.github.io", "http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 app.use(express.json({ limit: "2mb" }));
+
+app.get("/", (_req, res) => res.send("LearnHub API is running"));
 
 app.get("/api/health", (_req, res) =>
   res.json({ status: "ok", service: "LearnHub API" }),
